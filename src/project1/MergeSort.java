@@ -5,9 +5,13 @@ import java.util.Arrays;
 public class MergeSort implements SortInterface {
 
   private int counter;
+  private long start;
+  private long stop;
 
   public MergeSort() {
-    counter = 0;
+    this.start = 0;
+    this.stop = 0;
+    this.counter = 0;
   }
 
   public static int[] recursiveMerge(int[] array, int low, int mid, int high) {
@@ -96,6 +100,22 @@ public class MergeSort implements SortInterface {
     }
   }
 
+  public long getStart() {
+    return start;
+  }
+
+  public void setStart() {
+    start = System.nanoTime();
+  }
+
+  public long getStop() {
+    return stop;
+  }
+
+  public void setStop() {
+    stop = System.nanoTime();
+  }
+
   /**
    * @param array array passed to be sorted
    * @param low   index of low end of array
@@ -126,15 +146,20 @@ public class MergeSort implements SortInterface {
 
   @Override
   public int getCount() {
-    return 0;
+    return counter;
+  }
+
+  public void resetCount() {
+    counter = 0;
   }
 
   @Override
   public long getTime() {
-    return 0;
+    return stop - start;
   }
 
-  public int getCounter() {
-    return counter;
+  public void resetTime() {
+    start = 0;
+    stop = 0;
   }
 }
