@@ -14,9 +14,15 @@ import java.util.Arrays;
 public class BenchmarkSorts {
   public static void main(String[] args) {
     System.out.println("Hello world!");
-    int[] list={5,4,3,2,1};
-    System.out.println(Arrays.toString(list));
-    MergeSort.recursiveMergeSort(list, 0, 4);
-    System.out.println(Arrays.toString(list));
+    int[] inputList = {5, 4, 3, 2, 1};
+    System.out.println(Arrays.toString(inputList));
+    MergeSort mergeSortObject = new MergeSort();
+    int[] outputList;
+    try {
+      outputList =mergeSortObject.recursiveSort(inputList, 0, 4);
+    } catch (UnsortedException e) {
+      throw new RuntimeException(e);
+    }
+    System.out.println(Arrays.toString(outputList));
   }
 }
