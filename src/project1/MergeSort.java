@@ -4,26 +4,13 @@ import java.util.Arrays;
 
 public class MergeSort implements SortInterface {
 
+  private int counter;
+
   public MergeSort() {
+    counter = 0;
   }
 
-  /**
-   * @param array array passed to be sorted
-   * @param low   index of low end of array
-   * @param high  index of high end of array
-   */
-  public static void recursiveMergeSort(int[] array, int low, int high) {
-    if (high <= low) {
-      return;
-    }
-
-    int mid = (low + high) / 2;
-    recursiveMergeSort(array, low, mid);
-    recursiveMergeSort(array, mid + 1, high);
-    recursiveMerge(array, low, mid, high);
-  }
-
-  public static void recursiveMerge(int[] array, int low, int mid, int high) {
+  public static int[] recursiveMerge(int[] array, int low, int mid, int high) {
     // Creating temporary subArrays
     int[] leftArray = new int[mid - low + 1];
     int[] rightArray = new int[high - mid];
@@ -58,7 +45,7 @@ public class MergeSort implements SortInterface {
         rightIndex++;
       }
     }
-
+    return array;
   }
 
   public static void iterativeMerge(int[] A, int[] temp, int from, int mid, int to) {
@@ -109,18 +96,26 @@ public class MergeSort implements SortInterface {
     }
   }
 
+  /**
+   * @param array array passed to be sorted
+   * @param low   index of low end of array
+   * @param high  index of high end of array
+   */
+  public int[] recursiveMergeSort(int[] array, int low, int high) {
+    counter++;
+    if (high <= low) {
+      return array;
+    }
 
-
+    int mid = (int) ((low + high) / 2);
+    recursiveMergeSort(array, low, mid);
+    recursiveMergeSort(array, mid + 1, high);
+    return recursiveMerge(array, low, mid, high);
+  }
 
   @Override
   public int[] recursiveSort(int[] list, int low, int high) throws UnsortedException {
-    recursiveMergeSort(list, low, high);
-    int[] javaList = list;
-    Arrays.sort(javaList);
-    if (Arrays.equals(list, javaList)) {
-      throw new UnsortedException("Array is unsorted!");
-    }
-    return list;
+    return recursiveMergeSort(list, low, high);
   }
 
   @Override
@@ -139,4 +134,7 @@ public class MergeSort implements SortInterface {
     return 0;
   }
 
+  public int getCounter() {
+    return counter;
+  }
 }
