@@ -52,31 +52,32 @@ public class MergeSort implements SortInterface {
     return array;
   }
 
-  public static void iterativeMerge(int[] A, int[] temp, int from, int mid, int to) {
+  public static int[] iterativeMerge(int[] list, int[] temp, int from, int mid, int to) {
     int k = from, i = from, j = mid + 1;
     // loop till no elements are left in the left and right runs
     while (i <= mid && j <= to) {
-      if (A[i] < A[j]) {
-        temp[k++] = A[i++];
+      if (list[i] < list[j]) {
+        temp[k++] = list[i++];
       } else {
-        temp[k++] = A[j++];
+        temp[k++] = list[j++];
       }
     }
 
     // copy remaining elements
-    while (i < A.length && i <= mid) {
-      temp[k++] = A[i++];
+    while (i < list.length && i <= mid) {
+      temp[k++] = list[i++];
     }
          /* no need to copy the second half (since the remaining items
            are already in their correct position in the temporary array) */
     // copy back to the original array to reflect sorted order
     for (i = from; i <= to; i++) {
-      A[i] = temp[i];
+      list[i] = temp[i];
     }
+    return list;
   }
 
   // Iteratively sort subarray `A[low…high]` using a temporary array
-  public static void iterativeMergeSort(int[] list) {
+  public static int[] iterativeMergeSort(int[] list) {
     int low = 0;
     int high = list.length - 1;
 
@@ -91,13 +92,13 @@ public class MergeSort implements SortInterface {
       // for m = 4, i = 0, 8, 16 …
       // …
       for (int i = low; i < high; i += 2 * m) {
-        int from = i;
         int mid = i + m - 1;
         int to = Integer.min(i + 2 * m - 1, high);
 
-        iterativeMerge(list, temp, from, mid, to);
+        iterativeMerge(list, temp, i, mid, to);
       }
     }
+    return list;
   }
 
   public long getStart() {
@@ -127,21 +128,23 @@ public class MergeSort implements SortInterface {
       return array;
     }
 
-    int mid = (int) ((low + high) / 2);
+    int mid = (low + high) / 2;
     recursiveMergeSort(array, low, mid);
     recursiveMergeSort(array, mid + 1, high);
     return recursiveMerge(array, low, mid, high);
   }
 
   @Override
-  public int[] recursiveSort(int[] list, int low, int high) throws UnsortedException {
+  public int[] recursiveSort(int[] list) throws UnsortedException {
+    int low = 0;
+    int high = list.length - 1;
     return recursiveMergeSort(list, low, high);
   }
 
   @Override
   public int[] iterativeSort(int[] list) throws UnsortedException {
     iterativeMergeSort(list);
-    return new int[0];
+    return list;
   }
 
   @Override

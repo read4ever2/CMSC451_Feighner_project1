@@ -1,11 +1,11 @@
 package project1;
 
 public interface SortInterface {
-  public int[] recursiveSort(int[] list, int low, int high) throws UnsortedException;
+  int[] recursiveSort(int[] list) throws UnsortedException;
 
-  public int[] iterativeSort(int[] list) throws UnsortedException;
+  int[] iterativeSort(int[] list) throws UnsortedException;
 
-  public int getCount();
+  int getCount();
 
-  public long getTime();
+  long getTime();
 }

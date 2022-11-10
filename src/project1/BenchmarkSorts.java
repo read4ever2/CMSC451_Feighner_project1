@@ -14,7 +14,7 @@ import java.util.Random;
 
 public class BenchmarkSorts {
   public static void main(String[] args) {
-    System.out.println("Hello world!");
+
     int[] inputList = new int[50];
     Random random = new Random();
     for (int i = 0; i < 50; i++) {
@@ -23,8 +23,9 @@ public class BenchmarkSorts {
     System.out.println(Arrays.toString(inputList));
     MergeSort mergeSortObject = new MergeSort();
     int[] outputList;
+    /*
     try {
-      outputList = mergeSortObject.recursiveSort(inputList, 0, inputList.length - 1);
+      outputList = mergeSortObject.recursiveSort(inputList);
     } catch (UnsortedException e) {
       throw new RuntimeException(e);
     }
@@ -53,12 +54,24 @@ public class BenchmarkSorts {
     }
     double average = 1.0d * sum / 50;
     System.out.println(average);
+    */
+
+    try {
+      outputList = mergeSortObject.iterativeSort(inputList);
+    } catch (UnsortedException unsortedException) {
+      throw new RuntimeException(unsortedException);
+    }
+    System.out.println(Arrays.toString(outputList));
+
   }
 
   private int[][] generateData(int length) {
+
+    final int dataLength = 50;
+
     Random random = new Random();
-    int[][] dataArray = new int[50][length];
-    for (int i = 0; i < 50; i++) {
+    int[][] dataArray = new int[dataLength][length];
+    for (int i = 0; i < dataLength; i++) {
       for (int j = 0; j < length; j++) {
         dataArray[i][j] = random.nextInt();
       }
