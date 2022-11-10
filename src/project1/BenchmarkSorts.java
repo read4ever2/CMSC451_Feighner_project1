@@ -16,12 +16,12 @@ public class BenchmarkSorts {
 
   private final int baseNValue = 100;
   private final int sortRuns = 50;
-  private int[][] finalReportOutput;
+  private long[][] finalReportOutput;
 
   private int[][] dataAmount10;
 
   public BenchmarkSorts() {
-    finalReportOutput = new int[10][101];
+    finalReportOutput = new long[10][101];
     dataAmount10 = new int[sortRuns][baseNValue * 10];
   }
 
@@ -81,13 +81,13 @@ public class BenchmarkSorts {
     System.out.println(Arrays.toString(outputList));
 */
 
-    benchmarkSortsObject.sortData(benchmarkSortsObject.dataAmount10);
+    benchmarkSortsObject.setFinalReportOutput(benchmarkSortsObject.sortData(benchmarkSortsObject.dataAmount10));
 
     System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalReportOutput()));
   }
 
-  public double[][] sortData(int[][] data) {
-    double[][] draftOutputReport = new double[10][101];
+  public long[][] sortData(int[][] data) {
+    long[][] draftOutputReport = new long[10][101];
     int reportRowNumber = 10;
     MergeSort mergeSortObject = new MergeSort();
     mergeSortObject.resetTime();
@@ -114,11 +114,11 @@ public class BenchmarkSorts {
     return draftOutputReport;
   }
 
-  public int[][] getFinalReportOutput() {
+  public long[][] getFinalReportOutput() {
     return finalReportOutput;
   }
 
-  public void setFinalReportOutput(int[][] finalReportOutput) {
+  public void setFinalReportOutput(long[][] finalReportOutput) {
     this.finalReportOutput = finalReportOutput;
   }
 
