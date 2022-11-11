@@ -10,6 +10,7 @@
 package project1;
 
 // Imports
+
 import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -59,8 +60,6 @@ public class MergeSort implements SortInterface {
     }
     return list;
   }
-
-  // Iteratively sort subarray `A[low…high]` using a temporary array
 
   /**
    * @param list Array of values to sort
@@ -174,6 +173,8 @@ public class MergeSort implements SortInterface {
   }
 
   /**
+   * Recursive Caller
+   *
    * @param list Array to be sorted
    * @return Sorted array
    * @throws UnsortedException if array is not sorted
@@ -186,6 +187,13 @@ public class MergeSort implements SortInterface {
     return recursiveMergeSort(list, low, high);
   }
 
+  /**
+   * Iterative caller
+   *
+   * @param list Array to sorted
+   * @return Sorted array
+   * @throws UnsortedException
+   */
   @Override
   public int[] iterativeSort(int[] list) throws UnsortedException {
     return iterativeMergeSort(list);
@@ -200,6 +208,9 @@ public class MergeSort implements SortInterface {
     counter.set(0);
   }
 
+  /**
+   * @return Time duration in nanoseconds from stop-start
+   */
   @Override
   public long getTime() {
     return stop - start;

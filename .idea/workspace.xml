@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="336d8e63-44f3-4cb7-a5c6-3b2febc619cc" name="Changes" comment="updated documentation">
+    <list default="true" id="336d8e63-44f3-4cb7-a5c6-3b2febc619cc" name="Changes" comment="counter changed to atomic">
+      <change beforePath="$PROJECT_DIR$/src/project1/BenchmarkSorts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/project1/BenchmarkSorts.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/project1/MergeSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/project1/MergeSort.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +86,7 @@
       <updated>1667760712052</updated>
       <workItem from="1667760713740" duration="12410000" />
       <workItem from="1668113499476" duration="1395000" />
-      <workItem from="1668115065999" duration="16451000" />
+      <workItem from="1668115065999" duration="17336000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1667760837470</created>
@@ -220,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668190854125</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="counter changed to atomic">
+      <created>1668191243088</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1668191243088</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -240,6 +248,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
     <MESSAGE value="updated documentation" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated documentation" />
+    <MESSAGE value="counter changed to atomic" />
+    <option name="LAST_COMMIT_MESSAGE" value="counter changed to atomic" />
   </component>
 </project>
