@@ -40,14 +40,35 @@ public class BenchmarkSorts {
     benchmarkSortsObject.setFinalRecursiveReportOutput(benchmarkSortsObject.recursiveDataSort(benchmarkSortsObject.dataSource));
     benchmarkSortsObject.setFinalIterativeReportOutput(benchmarkSortsObject.iterativeDataSort(benchmarkSortsObject.dataSource));
 
-    System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalRecursiveReportOutput()));
-    System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalIterativeReportOutput()));
+    /*
+     System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalRecursiveReportOutput()));
+     System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalIterativeReportOutput()));
+    */
 
     StringBuilder stringBuilder = new StringBuilder();
 
     for (int i = 0; i < benchmarkSortsObject.finalRecursiveReportOutput.length; i++) {
       for (int j = 0; j < benchmarkSortsObject.finalRecursiveReportOutput[i].length; j++) {
         if (j == benchmarkSortsObject.finalRecursiveReportOutput[i].length - 1) {
+          stringBuilder.append(benchmarkSortsObject.finalRecursiveReportOutput[i][j]);
+        } else {
+          stringBuilder.append(benchmarkSortsObject.finalRecursiveReportOutput[i][j]).append(",");
+        }
+      }
+      stringBuilder.append("\n");
+    }
+
+    try {
+      benchmarkSortsObject.CSVWriter(String.valueOf(stringBuilder), "recursiveReport.csv");
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    stringBuilder = new StringBuilder();
+
+    for (int i = 0; i < benchmarkSortsObject.finalIterativeReportOutput.length; i++) {
+      for (int j = 0; j < benchmarkSortsObject.finalIterativeReportOutput[i].length; j++) {
+        if (j == benchmarkSortsObject.finalIterativeReportOutput[i].length - 1) {
           stringBuilder.append(benchmarkSortsObject.finalIterativeReportOutput[i][j]);
         } else {
           stringBuilder.append(benchmarkSortsObject.finalIterativeReportOutput[i][j]).append(",");
@@ -57,24 +78,21 @@ public class BenchmarkSorts {
     }
 
     try {
-      benchmarkSortsObject.CSVWriter(String.valueOf(stringBuilder),"recursiveReport.csv");
+      benchmarkSortsObject.CSVWriter(String.valueOf(stringBuilder), "iterativeReport.csv");
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
 
-    System.out.println(stringBuilder);
+    // System.out.println(stringBuilder);
 
   } // End main
+
   public void CSVWriter(String fileData, String fileName)
           throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+    BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
     writer.write(fileData);
 
     writer.close();
-  }
-
-  private long[][] getFinalIterativeReportOutput() {
-    return finalIterativeReportOutput;
   }
 
   private void setFinalIterativeReportOutput(long[][] finalIterativeReportOutput) {
@@ -178,10 +196,6 @@ public class BenchmarkSorts {
     } // End outer for loop
     return draftOutputReport;
   } // End iterativeDataSort
-
-  public long[][] getFinalRecursiveReportOutput() {
-    return finalRecursiveReportOutput;
-  }
 
   public void setFinalRecursiveReportOutput(long[][] finalRecursiveReportOutput) {
     this.finalRecursiveReportOutput = finalRecursiveReportOutput;
