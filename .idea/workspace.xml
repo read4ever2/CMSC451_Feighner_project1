@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="336d8e63-44f3-4cb7-a5c6-3b2febc619cc" name="Changes" comment="update">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/project1/BenchmarkSorts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/project1/BenchmarkSorts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/project1/MergeSort.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/project1/MergeSort.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,7 +83,7 @@
       <updated>1667760712052</updated>
       <workItem from="1667760713740" duration="12410000" />
       <workItem from="1668113499476" duration="1395000" />
-      <workItem from="1668115065999" duration="6724000" />
+      <workItem from="1668115065999" duration="9437000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1667760837470</created>
@@ -167,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668122336403</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="update">
+      <created>1668122529882</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1668122529882</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,5 +196,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
     <option name="LAST_COMMIT_MESSAGE" value="update" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/project1/MergeSort.java</url>
+          <line>128</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

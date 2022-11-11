@@ -14,44 +14,6 @@ public class MergeSort implements SortInterface {
     this.counter = 0;
   }
 
-  public static int[] recursiveMerge(int[] array, int low, int mid, int high) {
-    // Creating temporary subArrays
-    int[] leftArray = new int[mid - low + 1];
-    int[] rightArray = new int[high - mid];
-
-    // Copying our subArrays into temporaries
-    System.arraycopy(array, low, leftArray, 0, leftArray.length);
-    for (int i = 0; i < rightArray.length; i++)
-      rightArray[i] = array[mid + i + 1];
-
-    // Iterators containing current index of temp subArrays
-    int leftIndex = 0;
-    int rightIndex = 0;
-
-    // Copying from leftArray and rightArray back into array
-    for (int i = low; i < high + 1; i++) {
-      // If there are still un-copied elements in R and L, copy minimum of the two
-      if (leftIndex < leftArray.length && rightIndex < rightArray.length) {
-        if (leftArray[leftIndex] < rightArray[rightIndex]) {
-          array[i] = leftArray[leftIndex];
-          leftIndex++;
-        } else {
-          array[i] = rightArray[rightIndex];
-          rightIndex++;
-        }
-      } else if (leftIndex < leftArray.length) {
-        // If all elements have been copied from rightArray, copy rest of leftArray
-        array[i] = leftArray[leftIndex];
-        leftIndex++;
-      } else if (rightIndex < rightArray.length) {
-        // If all elements have been copied from leftArray, copy rest of rightArray
-        array[i] = rightArray[rightIndex];
-        rightIndex++;
-      }
-    }
-    return array;
-  }
-
   public static int[] iterativeMerge(int[] list, int[] temp, int from, int mid, int to) {
     int k = from, i = from, j = mid + 1;
     // loop till no elements are left in the left and right runs
@@ -101,6 +63,47 @@ public class MergeSort implements SortInterface {
     return list;
   }
 
+  public int[] recursiveMerge(int[] array, int low, int mid, int high) {
+    // Creating temporary subArrays
+    int[] leftArray = new int[mid - low + 1];
+    int[] rightArray = new int[high - mid];
+
+    // Copying our subArrays into temporaries
+    System.arraycopy(array, low, leftArray, 0, leftArray.length);
+    for (int i = 0; i < rightArray.length; i++)
+      rightArray[i] = array[mid + i + 1];
+
+    // Iterators containing current index of temp subArrays
+    int leftIndex = 0;
+    int rightIndex = 0;
+
+    // Copying from leftArray and rightArray back into array
+    for (int i = low; i < high + 1; i++) {
+      // If there are still un-copied elements in R and L, copy minimum of the two
+      if (leftIndex < leftArray.length && rightIndex < rightArray.length) {
+        if (leftArray[leftIndex] < rightArray[rightIndex]) {
+          array[i] = leftArray[leftIndex];
+          leftIndex++;
+        } else {
+          array[i] = rightArray[rightIndex];
+          rightIndex++;
+        }
+        counter++;
+      } else if (leftIndex < leftArray.length) {
+        // If all elements have been copied from rightArray, copy rest of leftArray
+        array[i] = leftArray[leftIndex];
+        leftIndex++;
+        counter++;
+      } else if (rightIndex < rightArray.length) {
+        // If all elements have been copied from leftArray, copy rest of rightArray
+        array[i] = rightArray[rightIndex];
+        rightIndex++;
+        counter++;
+      }
+    }
+    return array;
+  }
+
   public long getStart() {
     return start;
   }
@@ -138,6 +141,7 @@ public class MergeSort implements SortInterface {
   public int[] recursiveSort(int[] list) throws UnsortedException {
     int low = 0;
     int high = list.length - 1;
+    counter++;
     return recursiveMergeSort(list, low, high);
   }
 

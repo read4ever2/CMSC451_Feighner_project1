@@ -21,7 +21,7 @@ public class BenchmarkSorts {
   private int[][] dataAmount10;
 
   public BenchmarkSorts() {
-    finalReportOutput = new long[10][101];
+    finalReportOutput = new long[10][2 * sortRuns + 1];
     dataAmount10 = new int[sortRuns][baseNValue * 10];
   }
 
@@ -94,17 +94,17 @@ public class BenchmarkSorts {
     mergeSortObject.resetCount();
     int countSum = 0;
     long timeSum = 0;
-    for (int i = 0; i < reportRowNumber; i++) {
-      draftOutputReport[i][0] = i * 100;
+    for (int i = 1; i <= reportRowNumber; i++) {
+      draftOutputReport[i - 1][0] = i * baseNValue;
       try {
         for (int j = 1; j <= data.length; j++) {
           mergeSortObject.resetCount();
           mergeSortObject.resetTime();
           mergeSortObject.setStart();
-          mergeSortObject.recursiveSort(Arrays.copyOfRange(data[j],0,i*100));
+          mergeSortObject.recursiveSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
           mergeSortObject.setStop();
-          draftOutputReport[i][j * 2] = mergeSortObject.getCount();
-          draftOutputReport[i][(j * 2) + 1] = mergeSortObject.getTime();
+          draftOutputReport[i - 1][(j * 2) - 1] = mergeSortObject.getCount();
+          draftOutputReport[i - 1][(j * 2)] = mergeSortObject.getTime();
         }
 
       } catch (UnsortedException e) {
