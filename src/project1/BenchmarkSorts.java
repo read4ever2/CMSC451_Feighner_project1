@@ -10,6 +10,7 @@
 package project1;
 
 // Imports
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -26,7 +27,7 @@ public class BenchmarkSorts {
     finalRecursiveReportOutput = new long[10][2 * sortRuns + 1];
     finalIterativeReportOutput = new long[10][2 * sortRuns + 1];
     dataSource = new int[sortRuns][baseNValue * 10];
-  }
+  } // End constructor
 
   public static void main(String[] args) {
 
@@ -38,7 +39,7 @@ public class BenchmarkSorts {
 
     System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalRecursiveReportOutput()));
     System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalIterativeReportOutput()));
-  }
+  } // End main
 
   private long[][] getFinalIterativeReportOutput() {
     return finalIterativeReportOutput;
@@ -48,32 +49,56 @@ public class BenchmarkSorts {
     this.finalIterativeReportOutput = finalIterativeReportOutput;
   }
 
+  /**
+   * @param data 2D array containing 50 rows of 10000 random integers
+   * @return 2D array containing number of values sorted (n) and 50 pairs of count and time to sort each run of n
+   */
   public long[][] iterativeDataSort(int[][] data) {
-    long[][] draftOutputReport = new long[10][101];
+    // Declare array for report data
     int reportRowNumber = 10;
+    long[][] draftOutputReport = new long[reportRowNumber][101];
+
+    // Prep sorting object
     MergeSort mergeSortObject = new MergeSort();
     mergeSortObject.resetTime();
     mergeSortObject.resetCount();
+
+    // For each row of the output report, sort 50 runs of random data of a defined length
     for (int i = 1; i <= reportRowNumber; i++) {
+      // Populate report array with number of elements sorted for that row
       draftOutputReport[i - 1][0] = i * baseNValue;
       try {
+        // For each row of random source data
         for (int j = 1; j <= data.length; j++) {
           mergeSortObject.resetCount();
           mergeSortObject.resetTime();
+          // Declare separate array to sort via Java to compare to manual sort
           int[] sortCheck = Arrays.copyOfRange(data[j - 1], 0, i * baseNValue);
           Arrays.sort(sortCheck);
+          // Start timer
           mergeSortObject.setStart();
+          // Sort portion of 10000 source data elements, depending on amount to sort for that report row
           int[] sortedArray = mergeSortObject.iterativeSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
+          // Stop timer and compare Java and manual sorted array
           sortCheck(draftOutputReport, mergeSortObject, i, j, sortCheck, sortedArray);
-        }
-
+        } // End inner for loop
       } catch (UnsortedException e) {
         throw new RuntimeException(e);
       }
-    }
+    } // End outer for loop
     return draftOutputReport;
-  }
+  } // End iterativeDataSort
 
+  /**
+   *
+   * @param draftOutputReport
+   * @param mergeSortObject
+   * @param i
+   * @param j
+   * @param sortCheck
+   * @param sortedArray
+   * @throws UnsortedException
+   */
   private void sortCheck(long[][] draftOutputReport, MergeSort mergeSortObject, int i, int j, int[] sortCheck, int[] sortedArray) throws UnsortedException {
     mergeSortObject.setStop();
     draftOutputReport[i - 1][(j * 2) - 1] = mergeSortObject.getCount();
