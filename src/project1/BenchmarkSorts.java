@@ -11,15 +11,11 @@ package project1;
 
 // Imports
 
-import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class BenchmarkSorts {
 
@@ -47,42 +43,35 @@ public class BenchmarkSorts {
     System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalRecursiveReportOutput()));
     System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalIterativeReportOutput()));
 
-    List<String[]> dataLines = new ArrayList<>();
-    dataLines.add(new String[]
-            { "John", "Doe", "38", "Comment Data\nAnother line of comment data" });
-    dataLines.add(new String[]
-            { "Jane", "Doe, Jr.", "19", "She said \"I'm being quoted\"" });
+    StringBuilder stringBuilder = new StringBuilder();
+
+    for (int i = 0; i < benchmarkSortsObject.finalRecursiveReportOutput.length; i++) {
+      for (int j = 0; j < benchmarkSortsObject.finalRecursiveReportOutput[i].length; j++) {
+        if (j == benchmarkSortsObject.finalRecursiveReportOutput[i].length - 1) {
+          stringBuilder.append(benchmarkSortsObject.finalIterativeReportOutput[i][j]);
+        } else {
+          stringBuilder.append(benchmarkSortsObject.finalIterativeReportOutput[i][j]).append(",");
+        }
+      }
+      stringBuilder.append("\n");
+    }
+
     try {
-      benchmarkSortsObject.givenDataArray_whenConvertToCSV_thenOutputCreated(dataLines);
+      benchmarkSortsObject.CSVWriter(String.valueOf(stringBuilder),"recursiveReport.csv");
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+
+    System.out.println(stringBuilder);
+
   } // End main
+  public void CSVWriter(String fileData, String fileName)
+          throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+    writer.write(fileData);
 
-  public String convertToCSV(String[] data) {
-    return Stream.of(data)
-            .map(this::escapeSpecialCharacters)
-            .collect(Collectors.joining(","));
+    writer.close();
   }
-
-  public void givenDataArray_whenConvertToCSV_thenOutputCreated(List<String[]> dataLines) throws IOException {
-    File csvOutputFile = new File("CSV_FILE_NAME.csv");
-    try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
-      dataLines.stream()
-              .map(this::convertToCSV)
-              .forEach(pw::println);
-    }
-  }
-
-  public String escapeSpecialCharacters(String data) {
-    String escapedData = data.replaceAll("\\R", " ");
-    if (data.contains(",") || data.contains("\"") || data.contains("'")) {
-      data = data.replace("\"", "\"\"");
-      escapedData = "\"" + data + "\"";
-    }
-    return escapedData;
-  }
-
 
   private long[][] getFinalIterativeReportOutput() {
     return finalIterativeReportOutput;
