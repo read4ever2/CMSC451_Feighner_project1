@@ -45,25 +45,16 @@ public class BenchmarkSorts {
      System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalIterativeReportOutput()));
     */
 
-    StringBuilder stringBuilder = new StringBuilder();
-
-    for (int i = 0; i < benchmarkSortsObject.finalRecursiveReportOutput.length; i++) {
-      for (int j = 0; j < benchmarkSortsObject.finalRecursiveReportOutput[i].length; j++) {
-        if (j == benchmarkSortsObject.finalRecursiveReportOutput[i].length - 1) {
-          stringBuilder.append(benchmarkSortsObject.finalRecursiveReportOutput[i][j]);
-        } else {
-          stringBuilder.append(benchmarkSortsObject.finalRecursiveReportOutput[i][j]).append(",");
-        }
-      }
-      stringBuilder.append("\n");
-    }
+    String recursiveReportString = getStringBuilder(benchmarkSortsObject.finalRecursiveReportOutput);
+    String iterativeReportString = getStringBuilder(benchmarkSortsObject.finalIterativeReportOutput);
 
     try {
-      benchmarkSortsObject.CSVWriter(String.valueOf(stringBuilder), "recursiveReport.csv");
+      benchmarkSortsObject.CSVWriter(recursiveReportString, "recursiveReport.csv");
+      benchmarkSortsObject.CSVWriter(iterativeReportString, "iterativeReport.csv");
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-
+/*
     stringBuilder = new StringBuilder();
 
     for (int i = 0; i < benchmarkSortsObject.finalIterativeReportOutput.length; i++) {
@@ -81,11 +72,27 @@ public class BenchmarkSorts {
       benchmarkSortsObject.CSVWriter(String.valueOf(stringBuilder), "iterativeReport.csv");
     } catch (IOException e) {
       throw new RuntimeException(e);
-    }
+    }*/
 
     // System.out.println(stringBuilder);
 
   } // End main
+
+  private static String getStringBuilder(long[][] data) {
+    StringBuilder stringBuilder = new StringBuilder();
+
+    for (long[] datum : data) {
+      for (int j = 0; j < datum.length; j++) {
+        if (j == datum.length - 1) {
+          stringBuilder.append(datum[j]);
+        } else {
+          stringBuilder.append(datum[j]).append(",");
+        }
+      }
+      stringBuilder.append("\n");
+    }
+    return stringBuilder.toString();
+  }
 
   public void CSVWriter(String fileData, String fileName)
           throws IOException {
