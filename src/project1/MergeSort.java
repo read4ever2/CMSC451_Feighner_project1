@@ -192,7 +192,7 @@ public class MergeSort implements SortInterface {
    *
    * @param list Array to sorted
    * @return Sorted array
-   * @throws UnsortedException
+   * @throws UnsortedException if sorted arrays do not match
    */
   @Override
   public int[] iterativeSort(int[] list) throws UnsortedException {
