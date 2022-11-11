@@ -84,21 +84,20 @@ public class MergeSort implements SortInterface {
   }
 
   /**
-   * @param array Sub-array to sort
-   * @param low Index of the lowest value
-   * @param mid Index of the Mid-point
-   * @param high Index of the highest value
+   * @param array Sub-array to sort, merge
+   * @param low   Index of the lowest value
+   * @param mid   Index of the Mid-point
+   * @param high  Index of the highest value
    * @return Sorted sub-array
    */
   public int[] recursiveMerge(int[] array, int low, int mid, int high) {
-    // Creating temporary subArrays
+    // Creating temporary subArrays to merge
     int[] leftArray = new int[mid - low + 1];
     int[] rightArray = new int[high - mid];
 
     // Copying our subArrays into temporaries
     System.arraycopy(array, low, leftArray, 0, leftArray.length);
-    for (int i = 0; i < rightArray.length; i++)
-      rightArray[i] = array[mid + i + 1];
+    Arrays.setAll(rightArray, i -> array[mid + i + 1]);
 
     // Iterators containing current index of temp subArrays
     int leftIndex = 0;
@@ -106,7 +105,8 @@ public class MergeSort implements SortInterface {
 
     // Copying from leftArray and rightArray back into array
     for (int i = low; i < high + 1; i++) {
-      // If there are still un-copied elements in R and L, copy minimum of the two
+      // If there are still un-copied elements in Right and Left, copy the lowest of the two into
+      // return array
       if (leftIndex < leftArray.length && rightIndex < rightArray.length) {
         if (leftArray[leftIndex] < rightArray[rightIndex]) {
           array[i] = leftArray[leftIndex];
@@ -140,22 +140,31 @@ public class MergeSort implements SortInterface {
   }
 
   /**
-   * @param array array passed to be sorted
-   * @param low   index of low end of array
-   * @param high  index of high end of array
+   * @param array Array to split in half, sort and merge
+   * @param low   Index of the start of the array
+   * @param high  Index of the end of the array
+   * @return Merged, sorted sub-array
    */
   public int[] recursiveMergeSort(int[] array, int low, int high) {
     counter++;
+    // Recursion base case, return if array length is 1
     if (high <= low) {
       return array;
     }
 
     int mid = (low + high) / 2;
+    // Recursive calls to split arrays in half
     recursiveMergeSort(array, low, mid);
     recursiveMergeSort(array, mid + 1, high);
+    // Merge returned sub-arrays
     return recursiveMerge(array, low, mid, high);
   }
 
+  /**
+   * @param list Array to be sorted
+   * @return Sorted array
+   * @throws UnsortedException if array is not sorted
+   */
   @Override
   public int[] recursiveSort(int[] list) throws UnsortedException {
     int low = 0;
