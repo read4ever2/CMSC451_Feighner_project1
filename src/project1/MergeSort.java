@@ -11,17 +11,18 @@ package project1;
 
 // Imports
 import java.util.Arrays;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MergeSort implements SortInterface {
 
-  private int counter;
+  private final AtomicInteger counter = new AtomicInteger();
   private long start;
   private long stop;
 
   public MergeSort() {
     this.start = 0;
     this.stop = 0;
-    this.counter = 0;
+    this.counter.set(0);
   }
 
   /**
@@ -42,19 +43,19 @@ public class MergeSort implements SortInterface {
       } else {
         temp[k++] = list[j++];
       }
-      counter++;
+      counter.getAndIncrement();
     }
 
     // Once one sub-array is exhausted, copy the remaining elements from the other array
     while (i < list.length && i <= mid) {
       temp[k++] = list[i++];
-      counter++;
+      counter.getAndIncrement();
     }
 
     // Copy sorted temporary array back to original locations of adjacent left and right source arrays
     for (i = from; i <= to; i++) {
       list[i] = temp[i];
-      counter++;
+      counter.getAndIncrement();
     }
     return list;
   }
@@ -88,7 +89,7 @@ public class MergeSort implements SortInterface {
       for (int i = low; i < high; i += 2 * m) {
         int mid = i + m - 1;
         int to = Integer.min(i + 2 * m - 1, high);
-        counter++;
+        counter.getAndIncrement();
         outputList = iterativeMerge(list, temp, i, mid, to);
       }
     }
@@ -127,17 +128,17 @@ public class MergeSort implements SortInterface {
           array[i] = rightArray[rightIndex];
           rightIndex++;
         }
-        counter++;
+        counter.getAndIncrement();
       } else if (leftIndex < leftArray.length) {
         // If all elements have been copied from rightArray, copy rest of leftArray
         array[i] = leftArray[leftIndex];
         leftIndex++;
-        counter++;
+        counter.getAndIncrement();
       } else if (rightIndex < rightArray.length) {
         // If all elements have been copied from leftArray, copy rest of rightArray
         array[i] = rightArray[rightIndex];
         rightIndex++;
-        counter++;
+        counter.getAndIncrement();
       }
     }
     return array;
@@ -158,7 +159,7 @@ public class MergeSort implements SortInterface {
    * @return Merged, sorted sub-array
    */
   public int[] recursiveMergeSort(int[] array, int low, int high) {
-    counter++;
+    counter.getAndIncrement();
     // Recursion base case, return if array length is 1
     if (high <= low) {
       return array;
@@ -181,7 +182,7 @@ public class MergeSort implements SortInterface {
   public int[] recursiveSort(int[] list) throws UnsortedException {
     int low = 0;
     int high = list.length - 1;
-    counter++;
+    counter.getAndIncrement();
     return recursiveMergeSort(list, low, high);
   }
 
@@ -192,11 +193,11 @@ public class MergeSort implements SortInterface {
 
   @Override
   public int getCount() {
-    return counter;
+    return counter.get();
   }
 
   public void resetCount() {
-    counter = 0;
+    counter.set(0);
   }
 
   @Override
