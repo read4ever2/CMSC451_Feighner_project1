@@ -14,23 +14,23 @@ import java.util.Random;
 
 public class BenchmarkSorts {
 
-  private final int baseNValue = 100;
+  // Fields
+  private final int baseNValue = 10000;
   private final int sortRuns = 50;
-  private long[][] finalReportOutput;
-
-  private int[][] dataAmount10;
+  private long[][] finalIterativeReportOutput;
+  private long[][] finalRecursiveReportOutput;
+  private int[][] dataSource;
 
   public BenchmarkSorts() {
-    finalReportOutput = new long[10][2 * sortRuns + 1];
-    dataAmount10 = new int[sortRuns][baseNValue * 10];
+    finalRecursiveReportOutput = new long[10][2 * sortRuns + 1];
+    finalIterativeReportOutput = new long[10][2 * sortRuns + 1];
+    dataSource = new int[sortRuns][baseNValue * 10];
   }
 
   public static void main(String[] args) {
 
-
     BenchmarkSorts benchmarkSortsObject = new BenchmarkSorts();
-    benchmarkSortsObject.setDataAmount10(benchmarkSortsObject.generateData(benchmarkSortsObject.baseNValue * 10));
-
+    benchmarkSortsObject.setDataSource(benchmarkSortsObject.generateData(benchmarkSortsObject.baseNValue * 10));
 /*
     int[] inputList = new int[50];
     Random random = new Random();
@@ -80,20 +80,27 @@ public class BenchmarkSorts {
     }
     System.out.println(Arrays.toString(outputList));
 */
+    benchmarkSortsObject.setFinalRecursiveReportOutput(benchmarkSortsObject.recursiveDataSort(benchmarkSortsObject.dataSource));
+    benchmarkSortsObject.setFinalIterativeReportOutput(benchmarkSortsObject.iterativeDataSort(benchmarkSortsObject.dataSource));
 
-    benchmarkSortsObject.setFinalReportOutput(benchmarkSortsObject.sortData(benchmarkSortsObject.dataAmount10));
-
-    System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalReportOutput()));
+    System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalRecursiveReportOutput()));
+    System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalIterativeReportOutput()));
   }
 
-  public long[][] sortData(int[][] data) {
+  private long[][] getFinalIterativeReportOutput() {
+    return finalIterativeReportOutput;
+  }
+
+  private void setFinalIterativeReportOutput(long[][] finalIterativeReportOutput) {
+    this.finalIterativeReportOutput = finalIterativeReportOutput;
+  }
+
+  public long[][] iterativeDataSort(int[][] data) {
     long[][] draftOutputReport = new long[10][101];
     int reportRowNumber = 10;
     MergeSort mergeSortObject = new MergeSort();
     mergeSortObject.resetTime();
     mergeSortObject.resetCount();
-    int countSum = 0;
-    long timeSum = 0;
     for (int i = 1; i <= reportRowNumber; i++) {
       draftOutputReport[i - 1][0] = i * baseNValue;
       try {
@@ -101,7 +108,7 @@ public class BenchmarkSorts {
           mergeSortObject.resetCount();
           mergeSortObject.resetTime();
           mergeSortObject.setStart();
-          mergeSortObject.recursiveSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
+          mergeSortObject.iterativeSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
           mergeSortObject.setStop();
           draftOutputReport[i - 1][(j * 2) - 1] = mergeSortObject.getCount();
           draftOutputReport[i - 1][(j * 2)] = mergeSortObject.getTime();
@@ -114,25 +121,41 @@ public class BenchmarkSorts {
     return draftOutputReport;
   }
 
-  public long[][] getFinalReportOutput() {
-    return finalReportOutput;
-  }
-
-  public void setFinalReportOutput(long[][] finalReportOutput) {
-    this.finalReportOutput = finalReportOutput;
-  }
-
-
-  public int[][] getDataAmount10(int rows) {
-    int[][] returnArray = new int[rows][sortRuns];
-    for (int i = 0; i < rows; i++) {
-      System.arraycopy(dataAmount10[i], 0, returnArray[i], 0, sortRuns);
+  public long[][] recursiveDataSort(int[][] data) {
+    long[][] draftOutputReport = new long[10][101];
+    int reportRowNumber = 10;
+    MergeSort mergeSortObject = new MergeSort();
+    mergeSortObject.resetTime();
+    mergeSortObject.resetCount();
+    for (int i = 1; i <= reportRowNumber; i++) {
+      draftOutputReport[i - 1][0] = i * baseNValue;
+      try {
+        for (int j = 1; j <= data.length; j++) {
+          mergeSortObject.resetCount();
+          mergeSortObject.resetTime();
+          mergeSortObject.setStart();
+          mergeSortObject.recursiveSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
+          mergeSortObject.setStop();
+          draftOutputReport[i - 1][(j * 2) - 1] = mergeSortObject.getCount();
+          draftOutputReport[i - 1][(j * 2)] = mergeSortObject.getTime();
+        }
+      } catch (UnsortedException e) {
+        throw new RuntimeException(e);
+      }
     }
-    return returnArray;
+    return draftOutputReport;
   }
 
-  public void setDataAmount10(int[][] dataAmount10) {
-    this.dataAmount10 = dataAmount10;
+  public long[][] getFinalRecursiveReportOutput() {
+    return finalRecursiveReportOutput;
+  }
+
+  public void setFinalRecursiveReportOutput(long[][] finalRecursiveReportOutput) {
+    this.finalRecursiveReportOutput = finalRecursiveReportOutput;
+  }
+
+  public void setDataSource(int[][] dataSource) {
+    this.dataSource = dataSource;
   }
 
   private int[][] generateData(int length) {

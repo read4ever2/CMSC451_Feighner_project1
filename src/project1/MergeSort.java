@@ -14,39 +14,59 @@ public class MergeSort implements SortInterface {
     this.counter = 0;
   }
 
-  public static int[] iterativeMerge(int[] list, int[] temp, int from, int mid, int to) {
+  /**
+   * @param list Input arrays of increasing sizes
+   * @param temp Temporary array for copying
+   * @param from Beginning index of comparisons in array
+   * @param mid  Mid-point index of array length to be merged
+   * @param to   ENd index of subsection of array to be compared
+   * @return Sorted subarray for inclusion in larger subarray sorting
+   */
+  public int[] iterativeMerge(int[] list, int[] temp, int from, int mid, int to) {
     int k = from, i = from, j = mid + 1;
-    // loop till no elements are left in the left and right runs
+    // Loop to compare the lowest remaining value in left and right sorted sub-arrays
+    // The lowest value is copied into the next spot in the temporary array
     while (i <= mid && j <= to) {
       if (list[i] < list[j]) {
         temp[k++] = list[i++];
       } else {
         temp[k++] = list[j++];
       }
+      counter++;
     }
 
-    // copy remaining elements
+    // Once one sub-array is exhausted, copy the remaining elements from the other array
     while (i < list.length && i <= mid) {
       temp[k++] = list[i++];
+      counter++;
     }
-         /* no need to copy the second half (since the remaining items
-           are already in their correct position in the temporary array) */
-    // copy back to the original array to reflect sorted order
+
+    // Copy sorted temporary array back to original locations of adjacent left and right source arrays
     for (i = from; i <= to; i++) {
       list[i] = temp[i];
+      counter++;
     }
     return list;
   }
 
   // Iteratively sort subarray `A[low…high]` using a temporary array
-  public static int[] iterativeMergeSort(int[] list) {
+
+  /**
+   * @param list Array of values to sort
+   * @return Sorted array
+   */
+  public int[] iterativeMergeSort(int[] list) {
+
+    // Indexes of start and end of array
     int low = 0;
     int high = list.length - 1;
 
-    // sort array `A[]` using a temporary array `temp`
+    // Copy array into a temporary working array
     int[] temp = Arrays.copyOf(list, list.length);
 
-    // divide the array into blocks of size `m`
+    // Break array into smaller sub-arrays to compare and merge
+    // Ex, compare elements [0] and [1], the lower value goes to [0] and higher goes to [1]
+    // Then same for [2] and [3], then compare [0], [1], [2] and [3] and so on
     // m = [1, 2, 4, 8, 16…]
     for (int m = 1; m <= high - low; m = 2 * m) {
       // for m = 1, i = 0, 2, 4, 6, 8 …
@@ -56,13 +76,20 @@ public class MergeSort implements SortInterface {
       for (int i = low; i < high; i += 2 * m) {
         int mid = i + m - 1;
         int to = Integer.min(i + 2 * m - 1, high);
-
+        counter++;
         iterativeMerge(list, temp, i, mid, to);
       }
     }
     return list;
   }
 
+  /**
+   * @param array Sub-array to sort
+   * @param low Index of the lowest value
+   * @param mid Index of the Mid-point
+   * @param high Index of the highest value
+   * @return Sorted sub-array
+   */
   public int[] recursiveMerge(int[] array, int low, int mid, int high) {
     // Creating temporary subArrays
     int[] leftArray = new int[mid - low + 1];
@@ -104,16 +131,8 @@ public class MergeSort implements SortInterface {
     return array;
   }
 
-  public long getStart() {
-    return start;
-  }
-
   public void setStart() {
     start = System.nanoTime();
-  }
-
-  public long getStop() {
-    return stop;
   }
 
   public void setStop() {
