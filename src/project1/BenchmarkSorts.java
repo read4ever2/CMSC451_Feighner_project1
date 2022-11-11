@@ -59,11 +59,11 @@ public class BenchmarkSorts {
         for (int j = 1; j <= data.length; j++) {
           mergeSortObject.resetCount();
           mergeSortObject.resetTime();
+          int[] sortCheck = Arrays.copyOfRange(data[j - 1], 0, i * baseNValue);
+          Arrays.sort(sortCheck);
           mergeSortObject.setStart();
-          mergeSortObject.iterativeSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
-          mergeSortObject.setStop();
-          draftOutputReport[i - 1][(j * 2) - 1] = mergeSortObject.getCount();
-          draftOutputReport[i - 1][(j * 2)] = mergeSortObject.getTime();
+          int[] sortedArray = mergeSortObject.iterativeSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
+          sortCheck(draftOutputReport, mergeSortObject, i, j, sortCheck, sortedArray);
         }
 
       } catch (UnsortedException e) {
@@ -71,6 +71,15 @@ public class BenchmarkSorts {
       }
     }
     return draftOutputReport;
+  }
+
+  private void sortCheck(long[][] draftOutputReport, MergeSort mergeSortObject, int i, int j, int[] sortCheck, int[] sortedArray) throws UnsortedException {
+    mergeSortObject.setStop();
+    draftOutputReport[i - 1][(j * 2) - 1] = mergeSortObject.getCount();
+    draftOutputReport[i - 1][(j * 2)] = mergeSortObject.getTime();
+    if (!Arrays.equals(sortCheck, sortedArray)) {
+      throw new UnsortedException("Array is unsorted");
+    }
   }
 
   public long[][] recursiveDataSort(int[][] data) {
@@ -85,11 +94,11 @@ public class BenchmarkSorts {
         for (int j = 1; j <= data.length; j++) {
           mergeSortObject.resetCount();
           mergeSortObject.resetTime();
+          int[] sortCheck = Arrays.copyOfRange(data[j - 1], 0, i * baseNValue);
+          Arrays.sort(sortCheck);
           mergeSortObject.setStart();
-          mergeSortObject.recursiveSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
-          mergeSortObject.setStop();
-          draftOutputReport[i - 1][(j * 2) - 1] = mergeSortObject.getCount();
-          draftOutputReport[i - 1][(j * 2)] = mergeSortObject.getTime();
+          int[] sortedArray = mergeSortObject.recursiveSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
+          sortCheck(draftOutputReport, mergeSortObject, i, j, sortCheck, sortedArray);
         }
       } catch (UnsortedException e) {
         throw new RuntimeException(e);

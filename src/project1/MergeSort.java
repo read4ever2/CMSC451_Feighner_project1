@@ -68,19 +68,21 @@ public class MergeSort implements SortInterface {
     // Ex, compare elements [0] and [1], the lower value goes to [0] and higher goes to [1]
     // Then same for [2] and [3], then compare [0], [1], [2] and [3] and so on
     // m = [1, 2, 4, 8, 16…]
+    int[] outputList = new int[0];
     for (int m = 1; m <= high - low; m = 2 * m) {
       // for m = 1, i = 0, 2, 4, 6, 8 …
       // for m = 2, i = 0, 4, 8, 12 …
       // for m = 4, i = 0, 8, 16 …
       // …
+
       for (int i = low; i < high; i += 2 * m) {
         int mid = i + m - 1;
         int to = Integer.min(i + 2 * m - 1, high);
         counter++;
-        iterativeMerge(list, temp, i, mid, to);
+        outputList = iterativeMerge(list, temp, i, mid, to);
       }
     }
-    return list;
+    return outputList;
   }
 
   /**
@@ -175,8 +177,7 @@ public class MergeSort implements SortInterface {
 
   @Override
   public int[] iterativeSort(int[] list) throws UnsortedException {
-    iterativeMergeSort(list);
-    return list;
+    return iterativeMergeSort(list);
   }
 
   @Override
