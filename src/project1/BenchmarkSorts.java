@@ -76,9 +76,9 @@ public class BenchmarkSorts {
   }
 
   /**
-   * @param fileData
-   * @param fileName
-   * @throws IOException
+   * @param fileData string to write to file
+   * @param fileName string of file name
+   * @throws IOException file writing errors
    */
   public void CSVWriter(String fileData, String fileName)
           throws IOException {
