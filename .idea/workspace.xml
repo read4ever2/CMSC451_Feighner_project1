@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="336d8e63-44f3-4cb7-a5c6-3b2febc619cc" name="Changes" comment="csv output test">
-      <change afterPath="$PROJECT_DIR$/src/project1/SortsReport.java" afterDir="false" />
+    <list default="true" id="336d8e63-44f3-4cb7-a5c6-3b2febc619cc" name="Changes" comment="warmup test">
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iterativeReport.csv" beforeDir="false" afterPath="$PROJECT_DIR$/iterativeReport.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recursiveReport.csv" beforeDir="false" afterPath="$PROJECT_DIR$/recursiveReport.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/project1/BenchmarkSorts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/project1/BenchmarkSorts.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/project1/SortsReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/project1/SortsReport.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +57,7 @@
       <recent name="project1" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.SortsReport">
     <configuration name="BenchmarkSorts" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="project1.BenchmarkSorts" />
       <module name="CMSC451_Feighner_project1" />
@@ -73,8 +71,36 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Dialog" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="project1.Dialog" />
+      <module name="CMSC451_Feighner_project1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="project1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SortsReport" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="project1.SortsReport" />
+      <module name="CMSC451_Feighner_project1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="project1.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.SortsReport" />
+        <item itemvalue="Application.Dialog" />
         <item itemvalue="Application.BenchmarkSorts" />
       </list>
     </recent_temporary>
@@ -89,7 +115,7 @@
       <updated>1667760712052</updated>
       <workItem from="1667760713740" duration="12410000" />
       <workItem from="1668113499476" duration="1395000" />
-      <workItem from="1668115065999" duration="28538000" />
+      <workItem from="1668115065999" duration="32125000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1667760837470</created>
@@ -287,7 +313,21 @@
       <option name="project" value="LOCAL" />
       <updated>1668209623330</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="warmup test">
+      <created>1668287451076</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1668287451076</updated>
+    </task>
+    <task id="LOCAL-00030" summary="warmup test">
+      <created>1668287526305</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1668287526305</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,6 +350,7 @@
     <MESSAGE value="counter changed to atomic" />
     <MESSAGE value="documentation update" />
     <MESSAGE value="csv output test" />
-    <option name="LAST_COMMIT_MESSAGE" value="csv output test" />
+    <MESSAGE value="warmup test" />
+    <option name="LAST_COMMIT_MESSAGE" value="warmup test" />
   </component>
 </project>
