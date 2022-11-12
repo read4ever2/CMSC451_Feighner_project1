@@ -24,26 +24,22 @@ public class SortsReport extends JFrame {
 
     jFrame.setTitle("Benchmark Report");
 
-    Object[][] objectData = new Object[][]{
-            {0, 1, 2, 3, 4},
-            {1, 2, 3, 4, 5},
-            {2, 3, 4, 5, 6},
-            {3, 4, 5, 6, 7},
-            {4, 5, 6, 7, 8},
-            {5, 6, 7, 8, 9},
-            {6, 7, 8, 9, 10},
-            {7, 8, 9, 10, 11},
-            {8, 9, 10, 11, 12},
-            {9, 10, 11, 12, 13}};
+    Object[][] objectData = new Object[10][5];
 
-
+    for (int i = 0; i < data.length; i++) {
+      for (int j = 0; j < data[i].length; j++) {
+        objectData[i][j]= data[i][j];
+      }
+    }
     String[] columnNames = {"Size", "Avg Count", "Coef Count", "Avg Time", "Coef Time"};
     jTable = new JTable(objectData, columnNames);
     jTable.setBounds(30, 40, 200, 200);
 
     JScrollPane scrollPane = new JScrollPane(jTable);
     jFrame.add(scrollPane);
-    jFrame.setSize(500, 200);
+    jFrame.setSize(500, 250);
+    jFrame.setLocationRelativeTo(null);
+    jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     jFrame.setVisible(true);
 
   }
