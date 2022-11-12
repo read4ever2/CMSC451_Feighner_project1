@@ -12,14 +12,16 @@ package project1;
 import javax.swing.*;
 import java.util.Arrays;
 
-public class SortsReport extends JFrame {
+public class SortsReport  {
+
+
   public static void main(String[] args) {
     int[][] testData = testData();
     displayGUI(testData);
   }
 
   private static void displayGUI(int[][] data) {
-    SortsReport jFrame = new SortsReport();
+    JFrame jFrame = new JFrame();
     JTable jTable;
 
     jFrame.setTitle("Benchmark Report");
