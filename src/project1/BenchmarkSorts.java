@@ -34,50 +34,31 @@ public class BenchmarkSorts {
 
   public static void main(String[] args) {
 
+    // Create and fill object with random integers to sort
     BenchmarkSorts benchmarkSortsObject = new BenchmarkSorts();
     benchmarkSortsObject.setDataSource(benchmarkSortsObject.generateData(benchmarkSortsObject.baseNValue * 10));
 
+    // Sort data recursively and iteratively
     benchmarkSortsObject.setFinalRecursiveReportOutput(benchmarkSortsObject.recursiveDataSort(benchmarkSortsObject.dataSource));
     benchmarkSortsObject.setFinalIterativeReportOutput(benchmarkSortsObject.iterativeDataSort(benchmarkSortsObject.dataSource));
 
-    /*
-     System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalRecursiveReportOutput()));
-     System.out.println(Arrays.deepToString(benchmarkSortsObject.getFinalIterativeReportOutput()));
-    */
-
+    // Convert summary reports to strings for CSV
     String recursiveReportString = getStringBuilder(benchmarkSortsObject.finalRecursiveReportOutput);
     String iterativeReportString = getStringBuilder(benchmarkSortsObject.finalIterativeReportOutput);
 
+    // Write CSV files
     try {
       benchmarkSortsObject.CSVWriter(recursiveReportString, "recursiveReport.csv");
       benchmarkSortsObject.CSVWriter(iterativeReportString, "iterativeReport.csv");
     } catch (IOException e) {
       throw new RuntimeException(e);
-    }
-/*
-    stringBuilder = new StringBuilder();
-
-    for (int i = 0; i < benchmarkSortsObject.finalIterativeReportOutput.length; i++) {
-      for (int j = 0; j < benchmarkSortsObject.finalIterativeReportOutput[i].length; j++) {
-        if (j == benchmarkSortsObject.finalIterativeReportOutput[i].length - 1) {
-          stringBuilder.append(benchmarkSortsObject.finalIterativeReportOutput[i][j]);
-        } else {
-          stringBuilder.append(benchmarkSortsObject.finalIterativeReportOutput[i][j]).append(",");
-        }
-      }
-      stringBuilder.append("\n");
-    }
-
-    try {
-      benchmarkSortsObject.CSVWriter(String.valueOf(stringBuilder), "iterativeReport.csv");
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }*/
-
-    // System.out.println(stringBuilder);
-
+    } // End try/catch
   } // End main
 
+  /**
+   * @param data Report data to convert to string for writing to CSV
+   * @return Data in string form for writing to CSV
+   */
   private static String getStringBuilder(long[][] data) {
     StringBuilder stringBuilder = new StringBuilder();
 
@@ -94,6 +75,11 @@ public class BenchmarkSorts {
     return stringBuilder.toString();
   }
 
+  /**
+   * @param fileData
+   * @param fileName
+   * @throws IOException
+   */
   public void CSVWriter(String fileData, String fileName)
           throws IOException {
     BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
@@ -121,28 +107,30 @@ public class BenchmarkSorts {
     mergeSortObject.resetCount();
 
     // For each row of the output report, sort 50 runs of random data of a defined length
-    for (int i = 1; i <= reportRowNumber; i++) {
-      // Populate report array with number of elements sorted for that row
-      draftOutputReport[i - 1][0] = i * baseNValue;
-      try {
-        // For each row of random source data
-        for (int j = 1; j <= data.length; j++) {
-          mergeSortObject.resetCount();
-          mergeSortObject.resetTime();
-          // Declare separate array to sort via Java to compare to manual sort
-          int[] sortCheck = Arrays.copyOfRange(data[j - 1], 0, i * baseNValue);
-          Arrays.sort(sortCheck);
-          // Start timer
-          mergeSortObject.setStart();
-          // Sort portion of 10000 source data elements, depending on amount to sort for that report row
-          int[] sortedArray = mergeSortObject.iterativeSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
-          // Stop timer and compare Java and manual sorted array
-          sortCheck(draftOutputReport, mergeSortObject, i, j, sortCheck, sortedArray);
-        } // End inner for loop
-      } catch (UnsortedException e) {
-        throw new RuntimeException(e);
-      }
-    } // End outer for loop
+    for (int n = 0; n < 2; n++) { // run twice for warmup
+      for (int i = 1; i <= reportRowNumber; i++) {
+        // Populate report array with number of elements sorted for that row
+        draftOutputReport[i - 1][0] = i * baseNValue;
+        try {
+          // For each row of random source data
+          for (int j = 1; j <= data.length; j++) {
+            mergeSortObject.resetCount();
+            mergeSortObject.resetTime();
+            // Declare separate array to sort via Java to compare to manual sort
+            int[] sortCheck = Arrays.copyOfRange(data[j - 1], 0, i * baseNValue);
+            Arrays.sort(sortCheck);
+            // Start timer
+            mergeSortObject.setStart();
+            // Sort portion of 10000 source data elements, depending on amount to sort for that report row
+            int[] sortedArray = mergeSortObject.iterativeSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
+            // Stop timer and compare Java and manual sorted array
+            sortCheck(draftOutputReport, mergeSortObject, i, j, sortCheck, sortedArray);
+          } // End inner for loop
+        } catch (UnsortedException e) {
+          throw new RuntimeException(e);
+        }
+      } // End outer for loop
+    }
     return draftOutputReport;
   } // End iterativeDataSort
 
@@ -178,29 +166,31 @@ public class BenchmarkSorts {
     mergeSortObject.resetTime();
     mergeSortObject.resetCount();
     // For each row of the output report, sort 50 runs of random data of a defined length
-    for (int i = 1; i <= reportRowNumber; i++) {
-      // Populate report array with number of elements sorted for that row
-      draftOutputReport[i - 1][0] = i * baseNValue;
-      try {
-        // For each row of random source data
-        for (int j = 1; j <= data.length; j++) {
-          mergeSortObject.resetCount();
-          mergeSortObject.resetTime();
-          // Declare separate array to sort via Java to compare to manual sort
-          int[] sortCheck = Arrays.copyOfRange(data[j - 1], 0, i * baseNValue);
-          Arrays.sort(sortCheck);
-          // Start timer
-          mergeSortObject.setStart();
-          // Sort portion of 10000 source data elements, depending on amount to sort for that report row
+    for (int n = 0; n < 2; n++) { // run twice for warmup
+      for (int i = 1; i <= reportRowNumber; i++) {
+        // Populate report array with number of elements sorted for that row
+        draftOutputReport[i - 1][0] = i * baseNValue;
+        try {
+          // For each row of random source data
+          for (int j = 1; j <= data.length; j++) {
+            mergeSortObject.resetCount();
+            mergeSortObject.resetTime();
+            // Declare separate array to sort via Java to compare to manual sort
+            int[] sortCheck = Arrays.copyOfRange(data[j - 1], 0, i * baseNValue);
+            Arrays.sort(sortCheck);
+            // Start timer
+            mergeSortObject.setStart();
+            // Sort portion of 10000 source data elements, depending on amount to sort for that report row
 
-          int[] sortedArray = mergeSortObject.recursiveSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
-          // Stop timer and compare Java and manual sorted array
-          sortCheck(draftOutputReport, mergeSortObject, i, j, sortCheck, sortedArray);
-        } // End inner for loop
-      } catch (UnsortedException e) {
-        throw new RuntimeException(e);
-      }
-    } // End outer for loop
+            int[] sortedArray = mergeSortObject.recursiveSort(Arrays.copyOfRange(data[j - 1], 0, i * baseNValue));
+            // Stop timer and compare Java and manual sorted array
+            sortCheck(draftOutputReport, mergeSortObject, i, j, sortCheck, sortedArray);
+          } // End inner for loop
+        } catch (UnsortedException e) {
+          throw new RuntimeException(e);
+        }
+      } // End outer for loop
+    }
     return draftOutputReport;
   } // End iterativeDataSort
 
