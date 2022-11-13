@@ -19,11 +19,11 @@ public class SortsReport {
 
   // Fields
   private int[][] reportData;
-  private int[][] displayData;
+  private double[][] displayData;
 
   public SortsReport() {
     reportData = new int[0][];
-    displayData = new int[10][];
+    displayData = new double[10][];
   }
 
   public static void main(String[] args) {
@@ -33,8 +33,18 @@ public class SortsReport {
     sortsReport.setReportData(sortsReport.readData());
     System.out.println(Arrays.deepToString(sortsReport.getReportData()));
 
+    double[][] tempArray = sortsReport.processData(sortsReport.getReportData());
+
     sortsReport.setDisplayData(sortsReport.testData());
     sortsReport.displayGUI(sortsReport.getDisplayData());
+  }
+
+  public double[][] processData(int[][] inputData) {
+    double[][] returnData = new double[10][5];
+    for (int i = 0; i < inputData.length; i++) {
+
+    }
+    return returnData;
   }
 
   private int[][] readData() {
@@ -73,8 +83,8 @@ public class SortsReport {
   /**
    * @return Sample Display Data
    */
-  private int[][] testData() {
-    int[][] sampleData = new int[10][5];
+  private double[][] testData() {
+    double[][] sampleData = new double[10][5];
     for (int i = 0; i < sampleData.length; i++) {
       for (int j = 0; j < sampleData[i].length; j++) {
         sampleData[i][j] = (i + 1) * (j + 1);
@@ -87,7 +97,7 @@ public class SortsReport {
   /**
    * @param data Input data to display
    */
-  private void displayGUI(int[][] data) {
+  private void displayGUI(double[][] data) {
     JFrame jFrame = new JFrame();
     JTable jTable;
 
@@ -110,7 +120,6 @@ public class SortsReport {
     jFrame.setLocationRelativeTo(null);
     jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     jFrame.setVisible(true);
-
   }
 
   public int[][] getReportData() {
@@ -121,11 +130,11 @@ public class SortsReport {
     this.reportData = reportData;
   }
 
-  public int[][] getDisplayData() {
+  public double[][] getDisplayData() {
     return displayData;
   }
 
-  public void setDisplayData(int[][] displayData) {
+  public void setDisplayData(double[][] displayData) {
     this.displayData = displayData;
   }
 }
