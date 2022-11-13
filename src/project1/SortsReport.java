@@ -131,24 +131,31 @@ public class SortsReport {
 
   /**
    * Reads data from a csv file, expected 10 x 101 values
+   * converts csv to 2D array
    *
    * @return 2D array of data from csv file
    */
   private int[][] readData() {
+
+    // Select file to read
     JFileChooser jFileChooser = new JFileChooser();
     jFileChooser.showOpenDialog(null);
     File file = new File(jFileChooser.getSelectedFile().toURI());
 
-    // System.out.println(file);
-
     String[][] draftFileData = new String[10][101];
 
     try {
+
+      // Read file
       Scanner scanner = new Scanner(file);
 
       int counter = 0;
+
+      // Scan each line of the file
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
+
+        // Split line on commas, assign resulting array to corresponding array row
         draftFileData[counter] = line.split(",");
         counter++;
       }
@@ -159,6 +166,7 @@ public class SortsReport {
 
     int[][] returnFileData = new int[draftFileData.length][draftFileData[0].length];
 
+    // Convert string values to integers
     for (int i = 0; i < draftFileData.length; i++) {
       for (int j = 0; j < draftFileData[i].length; j++) {
         returnFileData[i][j] = Integer.parseInt(draftFileData[i][j]);
@@ -167,8 +175,14 @@ public class SortsReport {
     return returnFileData;
   }
 
-
+  /**
+   * Takes calculated data, displays data in JTable within JFrame
+   *
+   * @param data Data to display
+   */
   private void displayGUI(double[][] data) {
+
+    // Create components
     JFrame jFrame = new JFrame();
     JTable jTable;
 
@@ -176,6 +190,7 @@ public class SortsReport {
 
     Object[][] objectData = new Object[data.length][data[0].length];
 
+    // Format data into strings for table
     for (int i = 0; i < data.length; i++) {
       for (int j = 0; j < data[i].length; j++) {
         switch (j) {
@@ -187,11 +202,14 @@ public class SortsReport {
         }
       }
     }
+
+    // Format JTable
     String[] columnNames = {"Size", "Avg Count", "Coef Count", "Avg Time", "Coef Time"};
     jTable = new JTable(objectData, columnNames);
     jTable.setBounds(30, 40, 200, 200);
-
     JScrollPane scrollPane = new JScrollPane(jTable);
+
+    // Format JFrame
     jFrame.add(scrollPane);
     jFrame.setSize(500, 250);
     jFrame.setLocationRelativeTo(null);
