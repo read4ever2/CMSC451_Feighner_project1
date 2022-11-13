@@ -56,6 +56,9 @@ public class BenchmarkSorts {
   } // End main
 
   /**
+   * Converts benchmark data of counts and time duration of each sort run into string form
+   * to prep for writing to CSV
+   *
    * @param data Report data to convert to string for writing to CSV
    * @return Data in string form for writing to CSV
    */
@@ -76,6 +79,8 @@ public class BenchmarkSorts {
   }
 
   /**
+   * Writes strings of values seperated by comma to CSV file
+   *
    * @param fileData string to write to file
    * @param fileName string of file name
    * @throws IOException file writing errors
@@ -93,6 +98,10 @@ public class BenchmarkSorts {
   }
 
   /**
+   * Performs a Merge sort of data via an iterative method
+   * First sorts the first 1/10 of data provided, then 2/10 and so on until
+   * all data is sorted on last run
+   *
    * @param data 2D array containing 50 rows of 10000 random integers
    * @return 2D array containing number of values sorted (n) and 50 pairs of count and time to sort each run of n
    */
@@ -135,6 +144,8 @@ public class BenchmarkSorts {
   } // End iterativeDataSort
 
   /**
+   * Verifies to see if data sorted via manual algorithms matches data sorted via Java methods
+   *
    * @param draftOutputReport Data for output report
    * @param mergeSortObject   Sorting object
    * @param i                 output report row number
@@ -153,6 +164,10 @@ public class BenchmarkSorts {
   }
 
   /**
+   * Performs a Merge sort of data via a recursive method
+   * First sorts the first 1/10 of data provided, then 2/10 and so on until
+   * all data is sorted on last run
+   *
    * @param data 2D array containing 50 rows of 10000 random integers
    * @return 2D array containing number of values sorted (n) and 50 pairs of count and time to sort each run of n
    */
@@ -203,6 +218,8 @@ public class BenchmarkSorts {
   }
 
   /**
+   * Generates 50 rows of 10000 random integers to use in sorting algorithms
+   *
    * @param length number of random elements to generate for each run
    * @return 2d array of random integers
    */
