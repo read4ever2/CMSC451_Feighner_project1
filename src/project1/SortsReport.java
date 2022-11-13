@@ -9,6 +9,8 @@
 
 package project1;
 
+// Imports
+
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,32 +29,72 @@ public class SortsReport {
 
   public static void main(String[] args) {
 
+    // Declare object
     SortsReport sortsReport = new SortsReport();
+
+    // Get data from file
     sortsReport.setReportData(sortsReport.readData());
+
+    // Process data and set display data
     sortsReport.setDisplayData(sortsReport.processData(sortsReport.getReportData()));
+
+    // Display data
     sortsReport.displayGUI(sortsReport.getDisplayData());
   }
 
+  /**
+   * Takes an array of data containing benchmark from sorting algorithms and calculates
+   * the average and Coefficient of Variance of the data
+   *
+   * @param inputData Data from CSV file to calculate Averages and Coefficient of variance
+   * @return Averages and coefficient of variance of input data
+   */
   public double[][] processData(int[][] inputData) {
+    // Declare return variable
     double[][] returnData = new double[10][5];
+
+    // Outer loop for each row of input data array
     for (int i = 0; i < inputData.length; i++) {
+
+      // Set first element of each output row and first element of input row, number of elements sorted to generate benchmark data
       returnData[i][0] = inputData[i][0];
+
+      // Get average of count values of file data
       double countSum = 0;
+
+      // Loop through 1,3,5,7... elements of array and sum values
       for (int j = 1; j < inputData[0].length; j = j + 2) {
         countSum += inputData[i][j];
       }
+
+      // Calculate average of count values
       returnData[i][1] = countSum / (double) ((inputData[0].length - 1) / 2);
+
+      // Get average of time values of file data
       double timeSum = 0;
+
+      // Loop through 2,4,6,8... elements of array and sum values
+
       for (int j = 2; j < inputData[0].length; j = j + 2) {
         timeSum += inputData[i][j];
       }
+
+      // Calculate average of count values
       returnData[i][3] = timeSum / (double) ((inputData[0].length - 1) / 2);
+
+      // Calculate coefficient of Variance of Time values
       double[] coefTime = new double[inputData[0].length / 2];
+
+      // Copy Time values from 101 element array to 50 element array
       for (int j = 2; j < inputData[0].length; j = j + 2) {
         coefTime[(j / 2) - 1] = inputData[i][j];
       }
       returnData[i][4] = coefOfVariation(coefTime);
+
+      // Calculate coefficient of Variance of Count values
       double[] coefCount = new double[inputData[0].length / 2];
+
+      // Copy Count values from 101 element array to 50 element array
       for (int j = 1; j < inputData[0].length; j = j + 2) {
         coefCount[j / 2] = inputData[i][j];
       }
@@ -61,22 +103,37 @@ public class SortsReport {
     return returnData;
   }
 
-  private double coefOfVariation(double[] coefTime) {
+  /**
+   * Calculates the Coefficient of Variance of a supplied array
+   *
+   * @param coefData Array to calculate Coefficient of Variance of
+   * @return Coefficient of Variance of data
+   */
+  private double coefOfVariation(double[] coefData) {
+
+    // Calculate Mean
     double meanSum = 0;
-    for (double v : coefTime) {
+    for (double v : coefData) {
       meanSum += v;
     }
-    double mean = meanSum / coefTime.length;
+    double mean = meanSum / coefData.length;
 
+    // Calculate Standard Deviation
     double stdDevSum = 0;
-    for (double v : coefTime) {
+    for (double v : coefData) {
       stdDevSum += (v - mean) * (v - mean);
     }
-    double sqrt = Math.sqrt(stdDevSum / (coefTime.length - 1));
+    double stdDev = Math.sqrt(stdDevSum / (coefData.length - 1));
 
-    return sqrt / mean;
+    // Coefficient of Variance
+    return stdDev / mean;
   }
 
+  /**
+   * Reads data from a csv file, expected 10 x 101 values
+   *
+   * @return 2D array of data from csv file
+   */
   private int[][] readData() {
     JFileChooser jFileChooser = new JFileChooser();
     jFileChooser.showOpenDialog(null);
