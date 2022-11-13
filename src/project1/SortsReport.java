@@ -121,10 +121,10 @@ public class SortsReport {
 
     for (int i = 0; i < data.length; i++) {
       for (int j = 0; j < data[i].length; j++) {
-        switch (i) {
-          case 0 -> objectData[i][j] = data[i][j];
-          case 1, 3 -> objectData[i][j] = String.format("%.2f", data[i][j]) + " %";
-          case 2, 4 -> objectData[i][j] = String.format("%.2f", data[i][j]);
+        switch (j) {
+          case 0 -> objectData[i][j] = String.format("%.0f", data[i][j]);
+          case 1, 3 -> objectData[i][j] = String.format("%.2f", data[i][j]);
+          case 2, 4 -> objectData[i][j] = String.format("%.2f", data[i][j] * 100) + " %";
           default -> {
           }
         }
