@@ -12,7 +12,6 @@ package project1;
 import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class SortsReport {
@@ -29,13 +28,8 @@ public class SortsReport {
   public static void main(String[] args) {
 
     SortsReport sortsReport = new SortsReport();
-
     sortsReport.setReportData(sortsReport.readData());
-    System.out.println(Arrays.deepToString(sortsReport.getReportData()));
-
-    double[][] tempArray = sortsReport.processData(sortsReport.getReportData());
-
-    sortsReport.setDisplayData(tempArray);
+    sortsReport.setDisplayData(sortsReport.processData(sortsReport.getReportData()));
     sortsReport.displayGUI(sortsReport.getDisplayData());
   }
 
@@ -116,23 +110,7 @@ public class SortsReport {
     return returnFileData;
   }
 
-  /**
-   * @return Sample Display Data
-   */
-  private double[][] testData() {
-    double[][] sampleData = new double[10][5];
-    for (int i = 0; i < sampleData.length; i++) {
-      for (int j = 0; j < sampleData[i].length; j++) {
-        sampleData[i][j] = (i + 1) * (j + 1);
-      }
-    }
-    // System.out.println(Arrays.deepToString(sampleData));
-    return sampleData;
-  }
 
-  /**
-   * @param data Input data to display
-   */
   private void displayGUI(double[][] data) {
     JFrame jFrame = new JFrame();
     JTable jTable;
@@ -143,7 +121,13 @@ public class SortsReport {
 
     for (int i = 0; i < data.length; i++) {
       for (int j = 0; j < data[i].length; j++) {
-        objectData[i][j] = data[i][j];
+        switch (i) {
+          case 0 -> objectData[i][j] = data[i][j];
+          case 1, 3 -> objectData[i][j] = String.format("%.2f", data[i][j]) + " %";
+          case 2, 4 -> objectData[i][j] = String.format("%.2f", data[i][j]);
+          default -> {
+          }
+        }
       }
     }
     String[] columnNames = {"Size", "Avg Count", "Coef Count", "Avg Time", "Coef Time"};
