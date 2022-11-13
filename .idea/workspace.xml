@@ -4,7 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="336d8e63-44f3-4cb7-a5c6-3b2febc619cc" name="Changes" comment="file read test">
+    <list default="true" id="336d8e63-44f3-4cb7-a5c6-3b2febc619cc" name="Changes" comment="display to double">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/project1/SortsReport.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/project1/SortsReport.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -113,7 +114,7 @@
       <updated>1667760712052</updated>
       <workItem from="1667760713740" duration="12410000" />
       <workItem from="1668113499476" duration="1395000" />
-      <workItem from="1668115065999" duration="39852000" />
+      <workItem from="1668115065999" duration="42271000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <created>1667760837470</created>
@@ -360,7 +361,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668303880854</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="display to double">
+      <created>1668304566893</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1668304566893</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,6 +393,7 @@
     <MESSAGE value="csv output test" />
     <MESSAGE value="warmup test" />
     <MESSAGE value="file read test" />
-    <option name="LAST_COMMIT_MESSAGE" value="file read test" />
+    <MESSAGE value="display to double" />
+    <option name="LAST_COMMIT_MESSAGE" value="display to double" />
   </component>
 </project>

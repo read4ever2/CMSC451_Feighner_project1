@@ -35,16 +35,50 @@ public class SortsReport {
 
     double[][] tempArray = sortsReport.processData(sortsReport.getReportData());
 
-    sortsReport.setDisplayData(sortsReport.testData());
+    sortsReport.setDisplayData(tempArray);
     sortsReport.displayGUI(sortsReport.getDisplayData());
   }
 
   public double[][] processData(int[][] inputData) {
     double[][] returnData = new double[10][5];
     for (int i = 0; i < inputData.length; i++) {
-
+      returnData[i][0] = inputData[i][0];
+      double countSum = 0;
+      for (int j = 1; j < inputData[0].length; j = j + 2) {
+        countSum += inputData[i][j];
+      }
+      returnData[i][1] = countSum / inputData[0].length;
+      double timeSum = 0;
+      for (int j = 2; j < inputData[0].length; j = j + 2) {
+        timeSum += inputData[i][j];
+      }
+      returnData[i][3] = timeSum / inputData[0].length;
+      double[] coefTime = new double[inputData[0].length];
+      for (int j = 0; j < inputData[0].length; j = j + 2) {
+        coefTime[j / 2] = inputData[i][j];
+      }
+      returnData[i][4] = coefOfVariation(coefTime);
+      double[] coefCount = new double[inputData[0].length];
+      for (int j = 0; j < inputData[0].length; j = j + 2) {
+        coefCount[j / 2] = inputData[i][j];
+      }
+      returnData[i][2] = coefOfVariation(coefCount);
     }
     return returnData;
+  }
+
+  private double coefOfVariation(double[] coefTime) {
+    double meanSum = 0;
+    for (double v : coefTime) {
+      meanSum += v;
+    }
+    double mean = meanSum / coefTime.length;
+
+    double stdDevSum = 0;
+    for (double v : coefTime) {
+      stdDevSum += (v - mean) * (v - mean);
+    }
+    return Math.sqrt(stdDevSum / (coefTime.length - 1));
   }
 
   private int[][] readData() {
