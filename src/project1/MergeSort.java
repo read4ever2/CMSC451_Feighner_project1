@@ -50,13 +50,13 @@ public class MergeSort implements SortInterface {
     // Once one sub-array is exhausted, copy the remaining elements from the other array
     while (i < list.length && i <= mid) {
       temp[k++] = list[i++];
-      counter.getAndIncrement();
+      // counter.getAndIncrement();
     }
 
     // Copy sorted temporary array back to original locations of adjacent left and right source arrays
     for (i = from; i <= to; i++) {
       list[i] = temp[i];
-      counter.getAndIncrement();
+      // counter.getAndIncrement();
     }
     return list;
   }
@@ -132,12 +132,12 @@ public class MergeSort implements SortInterface {
         // If all elements have been copied from rightArray, copy rest of leftArray
         array[i] = leftArray[leftIndex];
         leftIndex++;
-        counter.getAndIncrement();
+        // counter.getAndIncrement();
       } else if (rightIndex < rightArray.length) {
         // If all elements have been copied from leftArray, copy rest of rightArray
         array[i] = rightArray[rightIndex];
         rightIndex++;
-        counter.getAndIncrement();
+        // counter.getAndIncrement();
       }
     }
     return array;
